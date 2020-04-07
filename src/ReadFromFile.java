@@ -2,13 +2,23 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class ReadFromFile { // //
- // "модификаторы доступа" "тип возвращаемого значения" "имя метода"("аргументы")
+public class ReadFromFile {
+
+    // поле класса
+    // глобальная переменная
+    static Scanner input = new Scanner(System.in);
+    static String[] names = {"jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"};
+    static int[] startDay = {0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365};
+    // объявление переменной | declaration
+    static double [] weather;
+
+    // "модификаторы доступа" "тип возвращаемого значения" "имя метода"("аргументы")
     // modifiers: public, private, protected
     // static
     private static int getMonthPosition(String monthName, String[] names) {
         // String monthName = month;
         // String [] names = names;
+        // локальная переменная
         int monthIndex = 0;
         for (int i = 0; i < names.length; i++) {
             if (names[i].equals(monthName)) {
@@ -21,59 +31,73 @@ public class ReadFromFile { // //
         return monthIndex;
     }
 
+    static double calculateAverageTemperaturePerMonth() {
+        String month = input.next();
+//        int k = Integer.valueOf(input.next());
+        // поиск позиции месяца в списке
+        int indexOfMonth = getMonthPosition(month, names); // как будто подстановка
+
+        // считаем среднее за выбранный месяц
+        double sumOfTemp = 0;
+        int firstDay = startDay[indexOfMonth];
+        int lastDay = startDay[indexOfMonth + 1];
+        for (int i = firstDay; i < lastDay; i++) {
+            sumOfTemp += weather[i];
+        }
+        return sumOfTemp / (lastDay - firstDay);
+    }
+
+    static void calculateMinPerMonth() {
+        String month = input.next();
+
+        // поиск позиции месяца в списке
+        int monthIndex = getMonthPosition(month, names);
+
+        int firstDay = startDay[monthIndex];
+        int firstDayNextDay = startDay[monthIndex + 1];
+        double minimum = weather[firstDay];
+        for (int i = firstDay; i < firstDayNextDay; i++) {
+            if (weather[i] < minimum) {
+                minimum = weather[i];
+            }
+        }
+        System.out.println("Min temp in " + names[monthIndex] + " was = " + minimum);
+    }
+
     public static void main(String[] args) throws FileNotFoundException {
-//        Integer.toString(12);
-//        Scanner.nextInt();
         Scanner sc = new Scanner(new File("data.txt"));
 
         int n = sc.nextInt();
         System.out.println("Number of days: " + n);
-        double[] weather = new double[n];
+        // определение переменной (установка значение) definition
+        weather = new double[n];
         for (int i = 0; i < n; i++) {
             weather[i] = sc.nextInt();
         }
 
-
-        String[] names = {"jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"};
-        int[] startDay = {0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365};
-
-        Scanner input = new Scanner(System.in);
+        // создаем метку для цикла
+        my_loop:
         while (true) {
             String operation = input.next();
 
-            if (operation.equals("exit")) {
-                break;
-            } else if (operation.equals("average")) {
-                String month = input.next();
-
-                // поиск позиции месяца в списке
-                int monthIndex = getMonthPosition(month, names); // как будто подстановка
-
-                // считаем среднее за выбранный месяц
-                double sumOfTemp = 0;
-                int firstDay = startDay[monthIndex];
-                int firstDayNextDay = startDay[monthIndex + 1];
-                for (int i = firstDay; i < firstDayNextDay; i++) {
-                    sumOfTemp += weather[i];
+            switch (operation) {
+                case "exit":
+                    break my_loop;
+                case "average": {
+                    double average = calculateAverageTemperaturePerMonth();
+                    System.out.println("Average temp was " + average);
+                    break;
                 }
-                System.out.println("Average temp in " + names[monthIndex] + " was " + sumOfTemp /(firstDayNextDay - firstDay) );
-            } else if(operation.equals("min")) {
-                String month = input.next();
-
-                // поиск позиции месяца в списке
-                int monthIndex = getMonthPosition(month, names);
-
-                int firstDay = startDay[monthIndex];
-                int firstDayNextDay = startDay[monthIndex + 1];
-                double minimum = weather[firstDay];
-                for (int i = firstDay; i < firstDayNextDay; i++) {
-                    if(weather[i] < minimum) {
-                        minimum = weather[i];
-                    }
+                case "min": {
+                    calculateMinPerMonth();
+                    break;
                 }
-                System.out.println("Min temp in " + names[monthIndex] + " was = " + minimum);
+                case "max": {
+
+                }
+                default:
+                    break;
             }
         }
-        System.out.println("Data loaded successfully");
     }
 }
