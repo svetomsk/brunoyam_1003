@@ -28,7 +28,21 @@ class Car {
         maxVelocity = 200;
     }
 
+    // modifiers: public, private, protected, package-local
+    public void beep() {
+        System.out.println("beep beep! ");
+    }
 
+    public static void makeSound() {
+        System.out.println("some sounds ");
+    }
+
+    public static Car compareMaxVelocity(Car first, Car second) {
+        if(first.maxVelocity > second.maxVelocity) {
+            return first;
+        }
+        return second;
+    }
 }
 
 
@@ -40,8 +54,14 @@ public class ClassesExample {
 //        audi.year = 2008;
 //        audi.maxVelocity = 230;
 //        audi.model = "audi";
+        audi.beep();
+
+        String s = new String("hello");
+        s.length();
 
         Car bmw = new Car("bmw", 2010, "black", 240);
+
+        Car fastest = Car.compareMaxVelocity(audi, bmw);
 //        bmw.model = "bmw";
 //        bmw.year = 2010;
 //        bmw.maxVelocity = 240;
