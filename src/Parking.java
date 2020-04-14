@@ -1,6 +1,9 @@
 import java.util.Arrays;
 
 public class Parking {
+    // без final изменяемая
+//    String EMPTY_PLACE = "__";
+    // c final неизменяемая
     final String EMPTY_PLACE = "__";
     String [] parking;
     int size;
