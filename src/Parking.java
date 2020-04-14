@@ -1,6 +1,7 @@
 import java.util.Arrays;
 
 public class Parking {
+    final String EMPTY_PLACE = "__";
     String [] parking;
     int size;
 
@@ -9,7 +10,7 @@ public class Parking {
         parking = new String[size];
         // [null, null, ...]
         for (int i = 0; i < n; i++) {
-            parking[i] = "";
+            parking[i] = EMPTY_PLACE;
         }
         // ["", "", "", ...]
 //        parking[i].equals("")
@@ -22,7 +23,7 @@ public class Parking {
 
     private int firstFreePlace() {
         for (int i = 0; i < size; i++) {
-            if(this.parking[i].equals("")) { // !parking[i].isEmpty()
+            if(this.parking[i].equals(EMPTY_PLACE)) { // !parking[i].isEmpty()
                return i;
             }
         }
@@ -32,7 +33,7 @@ public class Parking {
     public void freeCar(String number) {
         for (int i = 0; i < size; i++) {
             if (parking[i].equals(number)) {
-                parking[i] = "";
+                parking[i] = EMPTY_PLACE;
             }
         }
     }
@@ -44,7 +45,7 @@ public class Parking {
     public int freePlaces() {
         int count = 0;
         for(String element : parking) {
-            if(element.equals("")) {
+            if(element.equals(EMPTY_PLACE)) {
                 count++;
             }
         }
