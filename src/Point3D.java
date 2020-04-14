@@ -35,6 +35,7 @@ public class Point3D {
 class PointsTest {
     public static void main(String[] args) {
         Point3D first = new Point3D(1, 1, 1);
+
         System.out.println(first.getStringValue());
         System.out.println(first.distToZero());
 

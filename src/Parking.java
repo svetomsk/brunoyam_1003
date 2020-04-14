@@ -7,9 +7,12 @@ public class Parking {
     public Parking(int n) {
         size = n;
         parking = new String[size];
+        // [null, null, ...]
         for (int i = 0; i < n; i++) {
             parking[i] = "";
         }
+        // ["", "", "", ...]
+//        parking[i].equals("")
     }
 
     public void addCar(String number) {
@@ -19,7 +22,7 @@ public class Parking {
 
     private int firstFreePlace() {
         for (int i = 0; i < size; i++) {
-            if(parking[i].equals("")) { // !parking[i].isEmpty()
+            if(this.parking[i].equals("")) { // !parking[i].isEmpty()
                return i;
             }
         }
@@ -27,7 +30,11 @@ public class Parking {
     }
 
     public void freeCar(String number) {
-
+        for (int i = 0; i < size; i++) {
+            if (parking[i].equals(number)) {
+                parking[i] = "";
+            }
+        }
     }
 
     public void show() {
@@ -35,7 +42,13 @@ public class Parking {
     }
 
     public int freePlaces() {
-        return 0;
+        int count = 0;
+        for(String element : parking) {
+            if(element.equals("")) {
+                count++;
+            }
+        }
+        return count;
     }
 }
 
@@ -50,6 +63,8 @@ class TestParking {
         System.out.println(p.freePlaces());
 
         p.freeCar("a123bc");
+        p.freeCar("b321ef");
         p.show();
+        System.out.println(p.freePlaces());
     }
 }
