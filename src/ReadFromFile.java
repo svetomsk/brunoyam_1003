@@ -64,8 +64,20 @@ public class ReadFromFile {
         System.out.println("Min temp in " + names[monthIndex] + " was = " + minimum);
     }
 
-    public static void main(String[] args) throws FileNotFoundException {
-        Scanner sc = new Scanner(new File("data.txt"));
+    public static Scanner createScannerFromFile(String fileName) throws FileNotFoundException {
+        return new Scanner(new File(fileName));
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = null;
+        try {
+            sc = createScannerFromFile("data1.txt");
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            System.out.println("Check your file location");
+            System.exit(0);
+        }
 
         int n = sc.nextInt();
         System.out.println("Number of days: " + n);

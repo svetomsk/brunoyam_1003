@@ -21,7 +21,12 @@ public class Parking {
 
     public void addCar(String number) {
         int pos = firstFreePlace();
-        parking[pos] = number;
+        // проверка наличия свободного места
+        if (pos != -1) {
+            parking[pos] = number;
+        } else {
+            System.out.println("No free places");
+        }
     }
 
     private int firstFreePlace() {
@@ -58,7 +63,7 @@ public class Parking {
 
 class TestParking {
     public static void main(String[] args) {
-        Parking p = new Parking(10);
+        Parking p = new Parking(1);
         p.addCar("a123bc");
         p.show();
 
