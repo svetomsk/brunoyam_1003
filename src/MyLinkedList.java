@@ -9,7 +9,7 @@ class Item { // один элемент списка
 }
 
 
-public class MyLinkedList {
+public class MyLinkedList { // список, цепочка элементов Item
     Item head;
     Item tail;
 
@@ -26,12 +26,32 @@ public class MyLinkedList {
         }
     }
 
+    // добавляет элемент в начало списка
+    public void addFirst(int value) {
+
+    }
+
     public void print() {
         Item current = head;
         while (current != null) {
             System.out.println(current.value);
             current = current.next; // переход между элементами
         }
+    }
+
+    // удаляет первый элемент списка
+    public void removeFirst() {
+
+    }
+
+    // удаляет последний элемент списка
+    public void removeLast() {
+
+    }
+
+    // возвращает количество элементов
+    public void size() {
+
     }
 }
 
