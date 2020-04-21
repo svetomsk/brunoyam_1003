@@ -10,9 +10,11 @@ class Item { // один элемент списка
 
 
 public class MyLinkedList { // список, цепочка элементов Item
-    Item head;
-    Item tail;
+    Item head; // изначально null
+    Item tail; // изначально null
+    int size;
 
+    // добавляет элемент в конец списка
     public void add(int value) {
         if (head == null) { // список пустой
             Item current = new Item(value);
@@ -24,11 +26,21 @@ public class MyLinkedList { // список, цепочка элементов I
             current.prev = tail;
             tail = current;
         }
+        size++;
     }
 
     // добавляет элемент в начало списка
     public void addFirst(int value) {
-
+        if (head == null) {
+            Item current = new Item(value);
+            head = tail = current;
+        } else {
+            Item current = new Item(value);
+            current.next = head;
+            head.prev = current;
+            head = current;
+        }
+        size++;
     }
 
     public void print() {
@@ -41,7 +53,16 @@ public class MyLinkedList { // список, цепочка элементов I
 
     // удаляет первый элемент списка
     public void removeFirst() {
-
+        if (head != null) {
+            head = head.next;
+            if (head == null) { // был последний элемент
+                tail = null;
+            } else { // остался еще как минимум 1
+                head.prev.next = null;
+                head.prev = null;
+            }
+            size--;
+        }
     }
 
     // удаляет последний элемент списка
@@ -50,20 +71,32 @@ public class MyLinkedList { // список, цепочка элементов I
     }
 
     // возвращает количество элементов
-    public void size() {
-
+    public int size() {
+//        Item current = head;
+//        int count = 0;
+//        while(current != null) {
+//            count++;
+//            current = current.next;
+//        }
+//        return count;
+        return size;
     }
 }
 
 class ListTest {
     public static void main(String[] args) {
         MyLinkedList list = new MyLinkedList();
+        System.out.println("size = " + list.size());
         list.add(1);
         list.add(2);
-        list.add(2);
-        list.add(2);
-        list.add(2);
+        list.addFirst(0);
+        list.removeFirst();
+        list.removeFirst();
+        list.removeFirst();
+        list.removeFirst();
+        list.removeFirst();
         list.print();
+        System.out.println("size = " + list.size());
     }
 
 }
