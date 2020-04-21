@@ -39,5 +39,7 @@ public class MapsExample {
 
         HashMap<String, List<Integer>> nameToIds = new HashMap<>();
         nameToIds.put("first", new ArrayList<>());
+        nameToIds.get("first").add(1);
+        System.out.println(nameToIds);
     }
 }
