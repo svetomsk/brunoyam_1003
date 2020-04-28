@@ -82,10 +82,10 @@ class BinaryTree {
         }
         boolean result = false;
         if (current.left != null) {
-            result = result | checkExistance(current.left, element);
+            result = result || checkExistance(current.left, element);
         }
         if (current.right != null) {
-            result = result | checkExistance(current.right, element);
+            result = result || checkExistance(current.right, element);
         }
         return result;
     }
