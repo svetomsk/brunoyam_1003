@@ -1,3 +1,5 @@
+package structures;
+
 class Item { // один элемент списка
     int value; // значение в ячейке
     Item prev; // ссылка на предыдущий
@@ -9,7 +11,7 @@ class Item { // один элемент списка
 }
 
 
-public class MyLinkedList { // список, цепочка элементов Item
+public class MyLinkedList { // список, цепочка элементов structures.Item
     Item head; // изначально null
     Item tail; // изначально null
     int size;
@@ -72,7 +74,7 @@ public class MyLinkedList { // список, цепочка элементов I
 
     // возвращает количество элементов
     public int size() {
-//        Item current = head;
+//        structures.Item current = head;
 //        int count = 0;
 //        while(current != null) {
 //            count++;

@@ -1,3 +1,5 @@
+package hw;
+
 public class HW5 {
     static boolean checkAllLowerCase(String value) {
         boolean result = true;

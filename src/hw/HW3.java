@@ -1,3 +1,5 @@
+package hw;
+
 public class HW3 {
     public static void main(String[] args) {
         int [] data = {2, -3, 4, 5, -3, -5};
