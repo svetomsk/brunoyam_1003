@@ -31,16 +31,21 @@ class Plus extends Expression {
     }
 }
 
-class Minus {
+class Minus extends Expression{
 
+    public Minus(Expression left, Expression right) {
+    }
 }
 
-class Multiply {
-
+class Multiply extends Expression {
+    public Multiply(Expression left, Expression right) {
+    }
 }
 
-class Division {
+class Division extends Expression {
+    public Division(Expression left, Expression right) {
 
+    }
 }
 
 class Const extends Expression {
@@ -70,6 +75,42 @@ class Var extends Expression {
 }
 
 class Test {
+    // expression without brackets parsing
+    public static Expression parseExpression(String value) {
+        value = value.trim();
+        // find operation
+        int operationIndex = value.indexOf('+');
+        if (operationIndex != -1) {
+            Expression leftPart = parseExpression(value.substring(0, operationIndex));
+            Expression rightPart = parseExpression(value.substring(operationIndex + 1));
+            return new Plus(leftPart, rightPart);
+        }
+        operationIndex = value.indexOf("-");
+        if (operationIndex != -1) {
+            Expression leftPart = parseExpression(value.substring(0, operationIndex));
+            Expression rightPart = parseExpression(value.substring(operationIndex + 1));
+            return new Minus(leftPart, rightPart);
+        }
+        operationIndex = value.indexOf("*");
+        if (operationIndex != -1) {
+            Expression leftPart = parseExpression(value.substring(0, operationIndex));
+            Expression rightPart = parseExpression(value.substring(operationIndex + 1));
+            return new Multiply(leftPart, rightPart);
+        }
+        operationIndex = value.indexOf("/");
+        if (operationIndex != -1) {
+            Expression leftPart = parseExpression(value.substring(0, operationIndex));
+            Expression rightPart = parseExpression(value.substring(operationIndex + 1));
+            return new Division(leftPart, rightPart);
+        }
+
+        try {
+            return new Const(Double.parseDouble(value));
+        } catch (Exception exc) {
+            return new Var(value);
+        }
+    }
+
     public static void main(String[] args) {
         // x + 15
         Var x = new Var("x");
@@ -78,9 +119,12 @@ class Test {
         Plus sum = new Plus(x, fifteen);
         Map<String, Double> variableToValue = new HashMap<>();
         // "x" - 25
-        variableToValue.put("x", 25.0);
+        variableToValue.put("x", 28.0);
         System.out.println(sum.calculate(variableToValue));
         System.out.println(sum.covertToString());
+
+        String expression = "x + 2 - 3 * 4 + 10 / 5";
+        System.out.println(parseExpression(expression).calculate(variableToValue));
     }
 }
 
