@@ -75,7 +75,7 @@ class Test {
         Var x = new Var("x");
         Const ten = new Const(10);
         Const fifteen = new Const(15);
-        Plus sum = new Plus(x, fifteen);
+        Expression sum = new Plus(x, fifteen);
         Map<String, Double> variableToValue = new HashMap<>();
         // "x" - 25
         variableToValue.put("x", 25.0);
