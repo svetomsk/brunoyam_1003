@@ -3,22 +3,26 @@ package oop_practice;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Expression {
-    public double calculate(Map<String, Double> variableToValue) {
-        return 0;
-    }
+public abstract class Expression {
+    // функция без реализации, абстрактная функция
+    public abstract double calculate(Map<String, Double> variableToValue);
 
     public String covertToString() {
         return "";
     }
 }
 
-class Plus extends Expression {
-    String symbol = "+";
-    Expression left;
-    Expression right;
+// Expression s = new Expression();
+// s.calculate(null); --  FAIL
+// s.covertToString(); -- OK
 
-    public Plus(Expression left, Expression right) {
+class BinaryOperation extends Expression {
+    protected String symbol;
+    protected Expression left;
+    protected Expression right;
+
+    public BinaryOperation(String symbol, Expression left, Expression right) {
+        this.symbol = symbol;
         this.left = left;
         this.right = right;
     }
@@ -27,24 +31,89 @@ class Plus extends Expression {
     public double calculate(Map<String, Double> variableToValue) {
         double leftValue = left.calculate(variableToValue);
         double rightValue = right.calculate(variableToValue);
-        return leftValue + rightValue;
+        return operation(leftValue, rightValue);
+    }
+
+    public double operation(double a, double b) {
+        return 0;
     }
 }
 
-class Minus extends Expression{
+class Plus extends BinaryOperation {
+    public Plus(Expression left, Expression right) {
+        super("+", left, right);
+    }
 
+    @Override
+    public double operation(double a, double b) {
+        return a + b;
+    }
+
+    // new Plus();
+//    String symbol = "+";
+//    Expression left;
+//    Expression right;
+//
+//    public Plus(Expression left, Expression right) {
+//        this.left = left;
+//        this.right = right;
+//    }
+//
+//    @Override
+//    public double calculate(Map<String, Double> variableToValue) {
+//        double leftValue = left.calculate(variableToValue);
+//        double rightValue = right.calculate(variableToValue);
+//        return leftValue + rightValue;
+//    }
+
+}
+
+class Minus extends BinaryOperation {
     public Minus(Expression left, Expression right) {
+        super("-", left, right);
     }
+
+    @Override
+    public double operation(double a, double b) {
+        return a - b;
+    }
+
+    //    String symbol = "-";
+//    Expression left;
+//    Expression right;
+//
+//    public Minus(Expression left, Expression right) {
+//        this.left = left;
+//        this.right = right;
+//    }
+//
+//    @Override
+//    public double calculate(Map<String, Double> variableToValue) {
+//        double leftValue = left.calculate(variableToValue);
+//        double rightValue = right.calculate(variableToValue);
+//        return leftValue - rightValue;
+//    }
 }
 
-class Multiply extends Expression {
+class Multiply extends BinaryOperation {
     public Multiply(Expression left, Expression right) {
+        super("*", left, right);
+    }
+
+    @Override
+    public double operation(double a, double b) {
+        return a * b;
     }
 }
 
-class Division extends Expression {
+class Division extends BinaryOperation {
     public Division(Expression left, Expression right) {
+        super("/", left, right);
+    }
 
+    @Override
+    public double operation(double a, double b) {
+        return a / b;
     }
 }
 
