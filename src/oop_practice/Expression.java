@@ -1,22 +1,27 @@
 package oop_practice;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+
+// полностью асбтрактный класс
+interface AbstractExpression {
+    double calculate(Map<String, Double> values);
+    String convertToString();
+}
 
 public abstract class Expression {
     // функция без реализации, абстрактная функция
     public abstract double calculate(Map<String, Double> variableToValue);
 
-    public String covertToString() {
-        return "";
-    }
+    public abstract String convertToString();
 }
 
 // Expression s = new Expression();
 // s.calculate(null); --  FAIL
 // s.covertToString(); -- OK
 
-class BinaryOperation extends Expression {
+abstract class BinaryOperation implements AbstractExpression {
     protected String symbol;
     protected Expression left;
     protected Expression right;
@@ -28,15 +33,18 @@ class BinaryOperation extends Expression {
     }
 
     @Override
+    public String convertToString() {
+        return "";
+    }
+
+    @Override
     public double calculate(Map<String, Double> variableToValue) {
         double leftValue = left.calculate(variableToValue);
         double rightValue = right.calculate(variableToValue);
-        return operation(leftValue, rightValue);
+        return operation(leftValue, rightValue); // leftValue ?? rightValue
     }
 
-    public double operation(double a, double b) {
-        return 0;
-    }
+    public abstract double operation(double a, double b);
 }
 
 class Plus extends BinaryOperation {
@@ -117,6 +125,17 @@ class Division extends BinaryOperation {
     }
 }
 
+class Pow extends BinaryOperation {
+    public Pow(Expression left, Expression right) {
+        super("^", left, right);
+    }
+
+    @Override
+    public double operation(double a, double b) {
+        return Math.pow(a, b);
+    }
+}
+
 class Const extends Expression {
     double value;
 
@@ -127,6 +146,11 @@ class Const extends Expression {
     @Override
     public double calculate(Map<String, Double> variableToValue) {
         return value;
+    }
+
+    @Override
+    public String convertToString() {
+        return Double.toString(value);
     }
 }
 
@@ -140,6 +164,11 @@ class Var extends Expression {
     @Override
     public double calculate(Map<String, Double> variableToValue) {
         return variableToValue.getOrDefault(name, 1.0);
+    }
+
+    @Override
+    public String convertToString() {
+        return name;
     }
 }
 
@@ -193,6 +222,9 @@ class Test {
         System.out.println(sum.covertToString());
 
         String expression = "x + 2 - 3 * 4 + 10 / 5";
+//        Comparable
+//        Serializable
+
         System.out.println(parseExpression(expression).calculate(variableToValue));
     }
 }
