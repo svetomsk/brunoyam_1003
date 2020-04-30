@@ -1,6 +1,7 @@
-package oop_practice;
+package oop_practice.expression;
 
-import java.io.Serializable;
+import com.sun.source.tree.ExpressionStatementTree;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,7 +22,7 @@ public abstract class Expression {
 // s.calculate(null); --  FAIL
 // s.covertToString(); -- OK
 
-abstract class BinaryOperation implements AbstractExpression {
+abstract class BinaryOperation extends Expression {
     protected String symbol;
     protected Expression left;
     protected Expression right;
@@ -219,7 +220,7 @@ class Test {
         // "x" - 25
         variableToValue.put("x", 28.0);
         System.out.println(sum.calculate(variableToValue));
-        System.out.println(sum.covertToString());
+//        System.out.println(sum.covertToString());
 
         String expression = "x + 2 - 3 * 4 + 10 / 5";
 //        Comparable

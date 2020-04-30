@@ -1,4 +1,4 @@
-package oop_practice;
+package oop_practice.expression;
 
 public class ExpressionTest {
     public static void main(String[] args) {
