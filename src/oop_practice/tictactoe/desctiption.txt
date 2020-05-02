@@ -1,0 +1,16 @@
+CellValues: значения в учейках поля
+-- X, 0 and empty place
+
+Field: информация об ячейках поля
+-- хранятся данные data[][]
+-- setValue(x, y, value)
+-- size
+-- showField()
+
+Player: инфомрация об игроке и метод получения хода игрока
+-- putHereMark() makeTurn() сделайХод()
+-- field
+-- symbol (X vs 0)
+
+GameProcess: основная логика игры
+-- start()
