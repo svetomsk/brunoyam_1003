@@ -17,6 +17,9 @@ public class TestGame {
 //        System.out.println("x = " + coords[0] + " y = " + coords[1]);
 
         GameProcess game = new GameProcess();
-        game.startGame();
+        for (int i = 0; i < 2000; i++) {
+
+            game.startGame();
+        }
     }
 }

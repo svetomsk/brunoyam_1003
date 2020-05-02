@@ -61,4 +61,19 @@ public class Field {
         return size;
     }
 
+    public CellValues getValue(int row, int column) {
+        return data[row][column];
+    }
+
+    public boolean isDraw() {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (data[i][j] == CellValues.EMPTY) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
 }

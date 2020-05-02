@@ -4,16 +4,24 @@ public class GameProcess {
     public void startGame() {
         Field field = new Field(3);
 
-        IPlayer first = new RandomPlayer(CellValues.CROSS, field);
-        IPlayer second = new RandomPlayer(CellValues.ZERO, field);
+        IPlayer first = new StatPlayer(CellValues.CROSS, field);
+        IPlayer second = new HumanPlayer(CellValues.ZERO, field);
 
         boolean isFirstTurn = true;
 
         while(true) {
             CellValues checkResult = field.checkWinner();
             if (checkResult != CellValues.EMPTY) {
-                System.out.println(checkResult + " wins");
+                first.notifyResults(checkResult == first.getSymbol());
+                second.notifyResults(checkResult == second.getSymbol());
                 break;
+            } else {
+                if (field.isDraw()) {
+                    System.out.println("draw");
+                    first.notifyResults(true);
+                    second.notifyResults(true);
+                    break;
+                }
             }
             field.showField();
 
