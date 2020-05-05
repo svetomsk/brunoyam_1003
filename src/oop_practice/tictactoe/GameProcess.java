@@ -1,14 +1,22 @@
 package oop_practice.tictactoe;
-
 public class GameProcess {
+    private Field field;
+    private MainFrame frame;
+    private IPlayer first, second;
+    boolean isFirstTurn = true;
+
     public void startGame() {
-        Field field = new Field(3);
+        field = new Field(3);
 
-        IPlayer first = new HumanPlayer(CellValues.CROSS);
-        IPlayer second = new StatPlayer(CellValues.ZERO, field);
+        first = new HumanPlayer(CellValues.CROSS);
+        second = new StatPlayer(CellValues.ZERO, field);
+        field.setValue(0, 0, CellValues.CROSS);
+        field.setValue(1, 0, CellValues.ZERO);
+        frame = new MainFrame(field, this);
+        frame.setVisible(true);
+    }
 
-        boolean isFirstTurn = true;
-
+    private void justConsoleGame() {
         while(true) {
             // проверка завершения игры
             CellValues checkResult = field.checkWinner();
@@ -27,6 +35,7 @@ public class GameProcess {
 
             field.showField();
 
+            // выбираем игрока
             IPlayer player; // игрок, который делает ход
             if (isFirstTurn) { // ходит первый игрок
                 player = first;
@@ -47,5 +56,15 @@ public class GameProcess {
         }
         field.showField();
         System.out.println(Math.pow(3, 9));
+    }
+
+    public void handleClick(int x, int y) {
+        // выбрать игрока
+        // обновить статус бар
+        // попытаться сделать ход
+        // если успешно, то проверить на победу/ничью
+        // если победа/ничья - обновить статус бар
+        field.setValue(x, y, CellValues.CROSS);
+        frame.updateField();
     }
 }
