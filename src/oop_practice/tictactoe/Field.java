@@ -51,7 +51,7 @@ public class Field {
         if (data[0][0] == data[1][1] && data[1][1] == data[2][2] && data[0][0] != CellValues.EMPTY) {
             return data[0][0];
         }
-        if(data[0][2] == data[1][1] && data[1][1] == data[2][0] && data[1][1] != CellValues.EMPTY) {
+        if (data[0][2] == data[1][1] && data[1][1] == data[2][0] && data[1][1] != CellValues.EMPTY) {
             return data[1][1];
         }
         return CellValues.EMPTY;

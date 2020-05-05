@@ -4,11 +4,9 @@ import java.util.Scanner;
 
 public class HumanPlayer implements IPlayer {
     private CellValues symbol;
-    private Field field;
 
-    public HumanPlayer(CellValues symbol, Field field) {
+    public HumanPlayer(CellValues symbol) {
         this.symbol = symbol;
-        this.field = field;
     }
 
     @Override

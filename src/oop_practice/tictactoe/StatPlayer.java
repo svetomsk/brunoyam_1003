@@ -7,6 +7,7 @@ import java.util.Random;
 public class StatPlayer implements IPlayer {
     private CellValues symbol;
     private Field field;
+
     private List<String> opponentCombinations;
     private List<String> myCombinations;
     private Statistics stats;
@@ -14,6 +15,7 @@ public class StatPlayer implements IPlayer {
     public StatPlayer(CellValues symbol, Field field) {
         this.symbol = symbol;
         this.field = field;
+
         opponentCombinations = new ArrayList<>();
         myCombinations = new ArrayList<>();
         stats = new Statistics();
@@ -23,11 +25,13 @@ public class StatPlayer implements IPlayer {
     public int[] makeTurn() {
         String otherTurn = fieldToString();
         opponentCombinations.add(otherTurn);
-        int maxPriorityPos = -1;
+
+        int maxPriorityPos = -1; // позиция элемента, куда хотим установить значение
         int maxPriority = Integer.MIN_VALUE;
         char [] currentFieldArray = otherTurn.toCharArray();
 
         //find best combination
+        // ____X____
         for (int i = 0; i < currentFieldArray.length; i++) {
             if (currentFieldArray[i] == '_') {
                 currentFieldArray[i] = symbolToChar(symbol);
@@ -54,6 +58,7 @@ public class StatPlayer implements IPlayer {
         currentFieldArray[maxPriorityPos] = symbolToChar(symbol);
         myCombinations.add(new String(currentFieldArray));
         return new int[]{maxPriorityPos / field.size(), maxPriorityPos % field.size()};
+        // 5 -> 1 2
     }
 
     @Override
@@ -76,6 +81,7 @@ public class StatPlayer implements IPlayer {
     }
 
     private String fieldToString() {
+        // X__0_X___
         String result = "";
         for (int i = 0; i < field.size(); i++) {
             for (int j = 0; j < field.size(); j++) {

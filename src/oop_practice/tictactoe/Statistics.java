@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Statistics {
-    private Map<String, Integer> fieldToPriority;
+    private Map<String, Integer> fieldToPriority; // состояние поле -> приоритет
     private static final int WIN_INCREASE = 5;
     private static final int LOSE_DECREASE = -5;
     private static final String filename = "stats.txt";
@@ -38,8 +38,8 @@ public class Statistics {
         try {
             PrintWriter pw = new PrintWriter(new File(filename));
             pw.println(fieldToPriority.size());
-            for(String key : fieldToPriority.keySet()) {
-                pw.println(key + " " + fieldToPriority.get(key));
+            for(String combination : fieldToPriority.keySet()) {
+                pw.println(combination + " " + fieldToPriority.get(combination));
             }
             pw.close();
         } catch (FileNotFoundException e) {

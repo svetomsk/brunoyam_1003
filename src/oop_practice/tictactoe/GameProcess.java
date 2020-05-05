@@ -4,14 +4,15 @@ public class GameProcess {
     public void startGame() {
         Field field = new Field(3);
 
-        IPlayer first = new StatPlayer(CellValues.CROSS, field);
-        IPlayer second = new HumanPlayer(CellValues.ZERO, field);
+        IPlayer first = new HumanPlayer(CellValues.CROSS);
+        IPlayer second = new StatPlayer(CellValues.ZERO, field);
 
         boolean isFirstTurn = true;
 
         while(true) {
+            // проверка завершения игры
             CellValues checkResult = field.checkWinner();
-            if (checkResult != CellValues.EMPTY) {
+            if (checkResult != CellValues.EMPTY) { // игра окончена
                 first.notifyResults(checkResult == first.getSymbol());
                 second.notifyResults(checkResult == second.getSymbol());
                 break;
@@ -23,9 +24,10 @@ public class GameProcess {
                     break;
                 }
             }
+
             field.showField();
 
-            IPlayer player;
+            IPlayer player; // игрок, который делает ход
             if (isFirstTurn) { // ходит первый игрок
                 player = first;
             } else { // ходит второй игрок
