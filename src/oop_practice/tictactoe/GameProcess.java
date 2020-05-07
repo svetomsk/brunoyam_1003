@@ -10,10 +10,9 @@ public class GameProcess {
 
         first = new HumanPlayer(CellValues.CROSS);
         second = new StatPlayer(CellValues.ZERO, field);
-        field.setValue(0, 0, CellValues.CROSS);
-        field.setValue(1, 0, CellValues.ZERO);
         frame = new MainFrame(field, this);
         frame.setVisible(true);
+        frame.setStatusText("Player " + first.getSymbol() + " turn");
     }
 
     private void justConsoleGame() {
@@ -64,7 +63,38 @@ public class GameProcess {
         // попытаться сделать ход
         // если успешно, то проверить на победу/ничью
         // если победа/ничья - обновить статус бар
-        field.setValue(x, y, CellValues.CROSS);
+
+        // выбираем игрока
+        IPlayer player; // игрок, который делает ход
+        IPlayer last;
+        if (isFirstTurn) { // ходит первый игрок
+            player = first;
+            last = second;
+        } else { // ходит второй игрок
+            player = second;
+            last = first;
+        }
+        // обновили статус бар
+        frame.setStatusText("Player " + last.getSymbol() + " turn");
+
+        // совершаем ход
+        if (field.setValue(x, y, player.getSymbol())) {
+            CellValues checkResult = field.checkWinner();
+            if (checkResult != CellValues.EMPTY) { // игра окончена
+                first.notifyResults(checkResult == first.getSymbol());
+                second.notifyResults(checkResult == second.getSymbol());
+                frame.setStatusText("Player " + player.getSymbol() + "wins");
+            } else {
+                if (field.isDraw()) {
+                    frame.setStatusText("Draw :)");
+                    first.notifyResults(true);
+                    second.notifyResults(true);
+                }
+            }
+        }
         frame.updateField();
+
+        isFirstTurn = !isFirstTurn;
+
     }
 }

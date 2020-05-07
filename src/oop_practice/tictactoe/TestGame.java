@@ -4,8 +4,5 @@ public class TestGame {
     public static void main(String[] args) {
         GameProcess game = new GameProcess();
         game.startGame();
-//        for (int i = 0; i < 2000; i++) {
-//            game.startGame();
-//        }
     }
 }

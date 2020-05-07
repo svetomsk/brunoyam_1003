@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// Model Controller View
 public class MainFrame extends JFrame  {
     private Field field;
     private GameProcess controller;
